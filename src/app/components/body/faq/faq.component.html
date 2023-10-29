@@ -1,0 +1,39 @@
+<div class="bg-[#b0bec5]">
+  <div class="container py-16" [ngClass]="scrollPagePosition == 'faq' ? 'animate__animated animate__fadeInLeft' : ''">
+    <div class="text-center pb-4">
+      <p [ngClass]="scrollPagePosition == 'faq' ? 'animate__animated animate__pulse animate__infinite' : ''" class="text-2xl font-semibold header-underline">
+        Frequently Asked Questions
+      </p>
+    </div>
+
+    <div class="row pt-4">
+      <div class="col-lg-5 text-lg pb-4">
+        <p>Here are our most frequently asked questions to give you more insight on our operations.</p>
+        <p>
+          Have any other question? be sure to contact us through the contact form below and we'll
+          be sure to answer you as soon as possible.
+        </p>
+        <p>
+          You can also get assistance through our live chat bot to answer all your questions live and guide you through
+          all our loan terms and conditions and our platform in general.
+        </p>
+        <button routerLink="/questions" class="flex items-center px-2 py-1 text-black text-lg font-medium rounded-md bg-gradient-to-r from-green-400 to-blue-500 hover:from-pink-500 hover:to-yellow-500">
+          See all FAQs
+        </button>
+      </div>
+
+      <div class="col-lg-7" ngbAccordion [closeOthers]="true">
+        <div ngbAccordionItem *ngFor="let question of questions" [collapsed]="question.position !== 'First'">
+          <h2 ngbAccordionHeader>
+            <button ngbAccordionButton>{{question.title}}</button>
+          </h2>
+          <div ngbAccordionCollapse>
+            <div ngbAccordionBody>
+              <ng-template><p class="text-lg">{{question.content}}</p></ng-template>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

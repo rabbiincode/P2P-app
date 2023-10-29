@@ -1,0 +1,55 @@
+.twitter{
+  width: 2.1rem;
+  height: 1.1rem;
+}
+
+.pics{
+  width: 100%;
+  object-fit: cover;
+}
+
+.card{
+  width: 150px;
+  height: 150px;
+  text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.cards{
+  background: linear-gradient(to top, #cfd8dc 50%, transparent 50%);
+}
+
+.notify{
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 100;
+}
+
+@media only screen and (min-width: 1024px){
+  .card{
+    width: 200px;
+    height: 200px;
+  }
+}
+
+@media only screen and (min-width: 1300px){
+  .card{
+    width: 250px;
+    height: 250px;
+  }
+}
+
+@media only screen and (min-width: 1500px){
+  .card{
+    width: 300px;
+    height: 300px;
+  }
+}

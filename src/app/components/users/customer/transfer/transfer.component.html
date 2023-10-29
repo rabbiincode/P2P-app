@@ -1,0 +1,81 @@
+<div class="bg-blue-300 min-h-[calc(100vh-65px)]">
+  <div class="sticky top-[65px] z-[5]">
+    <div class="bg-blue-200">
+      <span class="text-black text-2xl font-medium px-4 py-8 shadow-lg">Transfer</span>
+    </div>  
+    <div class="flex justify-between text-black text-base">
+      <span></span>
+      <span class="font-medium px-2 py-1 shadow-lg">Balance: {{userData.balance | currency}}</span>
+    </div>
+  </div>
+
+  <div class="px-3 py-8">
+    <div class="max-w-[600px] m-auto">
+      <span class="flex justify-center pb-4"><mat-icon>flight_takeoff</mat-icon></span>
+      <div class="bg-[#e0f8e9] px-2 rounded-md">
+        <form [formGroup]="transferForm" (submit)="transferNow()" class="m-auto py-6">
+          <mat-form-field class="w-full">
+            <mat-label>Account Number</mat-label>
+            <input formControlName="receiverAccountNumber" matInput minlength="10" maxlength="10" required />
+            <mat-hint>CashMingle account number</mat-hint>
+            <mat-error *ngIf="transferForm.value.receiverAccountNumber == ''">
+              Account Number required
+            </mat-error>
+            <mat-error *ngIf="transferForm.get('receiverAccountNumber')?.hasError('pattern') || transferForm.get('receiverAccountNumber')?.hasError('minlength')">
+              Account Number invalid
+            </mat-error>
+          </mat-form-field>
+
+          <mat-form-field class="w-full">
+            <mat-label>Amount</mat-label>
+            <input formControlName="amount" matInput required />
+            <mat-hint>How much do you want to transfer?</mat-hint>
+            <mat-error *ngIf="transferForm.value.amount == ''">
+              Amount required
+            </mat-error>
+            <mat-error *ngIf="transferForm.get('amount')?.hasError('pattern')">
+              Amount invalid
+            </mat-error>
+          </mat-form-field>
+
+          <mat-form-field class="w-full">
+            <mat-label>Password</mat-label>
+            <input formControlName="senderPassword" matInput type="password" required />
+            <mat-hint>Enter your password</mat-hint>
+            <mat-error *ngIf="transferForm.value.senderPassword == ''">
+              Password required
+            </mat-error>
+            <mat-error *ngIf="transferForm.get('senderPassword')?.hasError('invalidPassword')">
+              Password Invalid
+            </mat-error>
+          </mat-form-field>
+
+          <mat-form-field class="w-full pb-2">
+            <mat-label>Description</mat-label>
+            <textarea formControlName="description" matInput cdkTextareaAutosize [cdkAutosizeMinRows]="7" [cdkAutosizeMaxRows]="7"></textarea>
+            <mat-hint>Enter transaction description</mat-hint>
+          </mat-form-field>
+
+          <div class="text-center">
+            <div class="pt-2">
+              <ngb-alert *ngIf="transferResponse" [type]="'success'" (closed)="transferResponse = ''">Transfer successful <mat-icon>flight_landing</mat-icon></ngb-alert>
+              <ngb-alert *ngIf="transferError && transferError?.status > 0 && transferError?.status <= 499" [type]="'danger'" (closed)="transferError = ''">
+                {{transferError?.error?.error}} {{transferError?.error?.message}}
+              </ngb-alert>
+              <ngb-alert *ngIf="transferError && transferError?.status >= 500 || transferError?.status == 0" [type]="'danger'" (closed)="transferError = ''">
+                Failed...please try again
+              </ngb-alert>
+            </div>
+
+            <button *ngIf="!loading" mat-flat-button color="primary" type="submit" [disabled]="transferForm.invalid  || transferForm.value.amount <= 0" class="btn w-full text-lg rounded-2xl p-4">
+              Transfer <mat-icon>flight_landing</mat-icon>
+            </button>
+            <button *ngIf="loading" mat-flat-button color="accent" class="btn w-full text-lg rounded-2xl p-4">
+              <span class="flex items-center m-auto">Please wait...<mat-spinner [diameter]="25"></mat-spinner></span>
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>  
+</div>

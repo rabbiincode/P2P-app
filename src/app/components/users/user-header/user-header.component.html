@@ -1,0 +1,31 @@
+<div class="sticky top-0 z-50">
+  <div class="bg-blue-50 flex justify-between h-[65px] px-4 py-3">
+    <div class="flex items-center">
+      <div class="flex items-center">
+        <img src="/assets/images/image/header.png" alt="img" width="25rem" height="25rem">
+        <span class="max-md:hidden text-blue-400 text-2xl font-semibold pr-32 pl-2">CashMingle<span class="text-red-700 text-3xl">.</span></span>
+      </div>
+
+      <mat-icon class="pl-2 cursor-pointer" (click)="toggleSidebar()">menu</mat-icon>
+    </div>
+
+    <div class="flex items-center">
+      <div class="circle-icon">
+        <img src="/assets/images/image/person.png" alt="img" width="25rem" height="25rem">
+      </div>
+
+      <div class="dropdown max-xs:hidden bg-gradient-to-l from-blue-300 to-blue-500 ml-2 text-lg font-medium rounded-md cursor-pointer hover:from-blue-500 hover:to-blue-300 hover:font-semibold hover:text-black">
+        <button type="button" id="dropdownMenuButton" data-mdb-toggle="dropdown" aria-expanded="false" class="btn dropdown-toggle text-teal-200">
+          Settings
+        </button>
+        <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton" style="margin-left: -40px;">
+          <li *ngIf="showSettings" routerLink="/user/profile" class="dropdown-item">User Profile</li>
+          <li (click)="logOut()" class="dropdown-item">LogOut</li>
+          <li class="dropdown-item cursor-text">Dark Mode 🌙</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <cashMingle-user-sidebar [sidebarToggle]="open" [sidebarContent]="sidebar" (sidebarHideOnClick)="toggleSidebar()"></cashMingle-user-sidebar>
+</div>

@@ -1,0 +1,157 @@
+<div class="bg-blue-300 min-h-[calc(100vh-65px)]">
+  <div class="bg-blue-200 sticky top-[65px] z-[5]">
+    <span class="text-black text-2xl font-medium px-4 py-6 shadow-lg">Search</span>
+  </div>
+    
+  <div class="px-3 py-12">
+    <div class="card mb-4">
+      <div class="card-body bg-slate-200">
+        <div class="card-title flex justify-between items-center pb-6">
+          <span class=" text-xl text-[#012970] flex items-center font-medium"><i class="bi bi-search pr-2"></i>Search</span>
+          <button *ngIf="show" (click)="back()" class="flex justify-center text-lg font-normal">
+            <i class="bi bi-arrow-left text-2xl pr-2"></i> Back
+          </button>       
+        </div>
+  
+        <div *ngIf="!show" class="row">
+          <div class="col-xxl-6 col-md-6">
+            <div class="card mb-4">
+              <div class="card-body bg-[#e0f8e9]">
+                <span class="card-title text-xl text-[#012970] font-medium pl-2">Get All Customers by Category 🥇</span>
+      
+                <div class="mt-4 m-auto">
+                  <mat-accordion>
+                    <mat-expansion-panel>
+                      <mat-expansion-panel-header (click)="arrow = !arrow">
+                        <mat-panel-title class="text-teal-500 text-lg font-medium">Get All Customers By:</mat-panel-title>
+                        <mat-icon>account_circle</mat-icon>
+                        <mat-icon *ngIf="arrow">arrow_drop_up</mat-icon>
+                        <mat-icon *ngIf="!arrow">arrow_drop_down</mat-icon>
+                      </mat-expansion-panel-header>
+
+                      <div class="max-w-[500px]">
+                        <ngb-alert *ngIf="getCustomersByCategoryError && getCustomersByCategoryError?.status > 0 && getCustomersByCategoryError?.status <= 499" [type]="'danger'" (closed)="getCustomersByCategoryError = ''">
+                          {{getCustomersByCategoryError?.error?.error}} {{getCustomersByCategoryError?.error?.message}}
+                        </ngb-alert>
+                        <ngb-alert *ngIf="getCustomersByCategoryError && getCustomersByCategoryError?.status >= 500 || getCustomersByCategoryError?.status == 0" [type]="'danger'" (closed)="getCustomersByCategoryError = ''">
+                          Failed...please try again
+                        </ngb-alert>
+                      </div>
+              
+                      <mat-radio-group aria-labelledby="example-radio-group-label" class="example-radio-group" [disabled]="!access" [(ngModel)]="customerCategoryValue">
+                        <mat-radio-button class="example-radio-button" *ngFor="let customer of customerCategory" [value]="customer">
+                          {{customer}}
+                        </mat-radio-button>
+                      </mat-radio-group>
+         
+                      <div class="max-w-[500px] mt-3">
+                        <button *ngIf="!loading" mat-flat-button color="primary" type="button" [disabled]="!customerCategoryValue" (click)="searchByCategory()" class="btn w-[100%] text-lg">
+                          Proceed
+                        </button>
+                        <button *ngIf="loading" mat-flat-button color="accent" class="btn w-[100%] text-lg">
+                          <span class="flex items-center m-auto">Please wait...<mat-spinner [diameter]="25"></mat-spinner></span>
+                        </button>
+                      </div>
+                        
+                    </mat-expansion-panel>
+                  </mat-accordion>
+                </div>
+              </div>
+            </div>
+          </div>
+      
+          <div class="col-xxl-6 col-md-6">
+            <div class="card mb-4">
+              <div class="card-body bg-[#e0f8e9]">
+                <span class="card-title text-xl text-[#012970] font-medium">Search Customers</span>
+        
+                <div class="mt-4 m-auto">
+                  <mat-accordion>
+                    <mat-expansion-panel>
+                      <mat-expansion-panel-header (click)="arrow1 = !arrow1">
+                        <mat-panel-title class="text-teal-500 text-lg font-medium">Search Customer By:</mat-panel-title>
+                        <mat-icon>account_circle</mat-icon>
+                        <mat-icon *ngIf="arrow1">arrow_drop_up</mat-icon>
+                        <mat-icon *ngIf="!arrow1">arrow_drop_down</mat-icon>
+                      </mat-expansion-panel-header>
+
+                      <div class="max-w-[500px]">
+                        <ngb-alert *ngIf="searchCustomerError && searchCustomerError?.status > 0 && searchCustomerError?.status <= 499" [type]="'danger'" (closed)="searchCustomerError = ''">
+                          {{searchCustomerError?.error?.error}} {{searchCustomerError?.error?.message}}
+                        </ngb-alert>
+                        <ngb-alert *ngIf="searchCustomerError && searchCustomerError?.status >= 500 || searchCustomerError?.status == 0" [type]="'danger'" (closed)="searchCustomerError = ''">
+                          Failed...please try again
+                        </ngb-alert>
+                      </div>
+              
+                      <mat-radio-group aria-labelledby="example-radio-group-label" class="example-radio-group" [(ngModel)]="searchByValue">
+                        <mat-radio-button class="example-radio-button" *ngFor="let searchCustomer of searchBy" [value]="searchCustomer" [disabled]="!access && searchCustomer == 'User Id'">
+                          {{searchCustomer}} <span *ngIf="searchCustomer == 'User Id'">🥇</span>
+                        </mat-radio-button>
+                      </mat-radio-group>
+
+                      <form [formGroup]="userIdForm" *ngIf="searchByValue == 'User Id'" class="max-w-[500px] py-2">
+                        <mat-form-field class="w-full">
+                          <mat-label>UserId</mat-label>
+                          <input formControlName="userId" matInput required />
+                          <mat-hint>Enter userId</mat-hint>
+                          <mat-error>
+                            UserId required
+                          </mat-error>
+                        </mat-form-field>
+                      </form>
+
+                      <form [formGroup]="userNameOrEmailForm" *ngIf="searchByValue == 'Email/ UserName'" class="max-w-[500px] py-2">
+                        <mat-form-field class="w-full">
+                          <mat-label>UserName or Email</mat-label>
+                          <input formControlName="emailAddressOrUserName" matInput required />
+                          <mat-hint>Enter userName or email address</mat-hint>
+                          <mat-error>
+                            UserName or Email required
+                          </mat-error>
+                        </mat-form-field>
+                      </form>
+                      
+                      <form [formGroup]="accountNumberForm" *ngIf="searchByValue == 'Account Number'" class="max-w-[500px] py-2">
+                        <mat-form-field class="w-full">
+                          <mat-label>Account Number</mat-label>
+                          <input formControlName="accountNumber" matInput minlength="10" maxlength="10" required />
+                          <mat-hint>Enter account number</mat-hint>
+                          <mat-error *ngIf="accountNumberForm.value.accountNumber == ''">
+                            Account Number required
+                          </mat-error>
+                          <mat-error *ngIf="accountNumberForm.get('accountNumber')?.hasError('pattern') || accountNumberForm.get('accountNumber')?.hasError('minlength')">
+                            Account Number Invalid
+                          </mat-error>
+                        </mat-form-field>
+                      </form>
+
+                      <div class="max-w-[500px] mt-3">
+                        <button *ngIf="!loading1" mat-flat-button color="primary" type="button" (click)="searchCustomer()" class="btn w-[100%] text-lg"
+                          [disabled]="!searchByValue || userNameOrEmailForm.invalid && searchByValue == 'Email/ UserName' || accountNumberForm.invalid && searchByValue == 'Account Number'
+                          || userIdForm.invalid && searchByValue == 'User Id'"
+                        >
+                          Proceed
+                        </button>
+                        <button *ngIf="loading1" mat-flat-button color="accent" class="btn w-[100%] text-lg">
+                          <span class="flex items-center m-auto">Please wait...<mat-spinner [diameter]="25"></mat-spinner></span>
+                        </button>
+                      </div>
+                      
+                    </mat-expansion-panel>
+                  </mat-accordion>
+                </div>
+
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div *ngIf="show">
+          <cashMingle-category [show]="selected" [tableData]="getCustomersByCategoryResponse" [tableData1]="searchCustomerResponse"></cashMingle-category>
+        </div>
+        
+      </div>
+    </div>
+  </div>     
+</div>

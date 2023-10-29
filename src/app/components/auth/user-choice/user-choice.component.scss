@@ -1,0 +1,30 @@
+.user {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.choice {
+  max-width: 500px;
+  max-height: 400px;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  margin: auto;
+  text-align: center;
+}
+
+.example-radio-group {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  margin: 15px 0;
+}
+
+.example-radio-button {
+  margin: 5px;
+}
+
+.displayChoice {
+  display: none;
+}

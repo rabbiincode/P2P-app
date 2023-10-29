@@ -1,0 +1,81 @@
+<div class="bg-blue-300 min-h-[calc(100vh-65px)]">
+  <div class="bg-blue-200 sticky top-[65px] z-[5]">
+    <span class="text-black text-2xl font-medium px-4 py-6 shadow-lg">Edit</span>
+  </div>
+  
+  <div class="px-3 py-12">
+    <div class="card mb-4">
+      <div class="card-body bg-slate-200">
+        <span class="card-title text-xl text-[#012970] flex items-center font-medium pb-6">
+          <i class="bi bi-database-fill pr-2"></i>Edit User
+        </span>
+
+        <div>
+          <mat-accordion>
+            <mat-expansion-panel>
+              <mat-expansion-panel-header (click)="arrow = !arrow">
+                <mat-panel-title class="text-teal-500 text-lg font-medium">Edit User Details</mat-panel-title>
+                <mat-icon>account_circle</mat-icon>
+                <mat-icon *ngIf="arrow">arrow_drop_up</mat-icon>
+                <mat-icon *ngIf="!arrow">arrow_drop_down</mat-icon>
+              </mat-expansion-panel-header>
+    
+              <div class="max-w-[500px]">
+                <ngb-alert *ngIf="editUserResponse" [type]="'success'" (closed)="editUserResponse = ''">{{editUserResponse?.result}}</ngb-alert>
+                <ngb-alert *ngIf="editUserError && editUserError?.status > 0 && editUserError?.status <= 499" [type]="'danger'" (closed)="editUserError = ''">
+                  {{editUserError?.error?.error}} {{editUserError?.error?.message}}
+                </ngb-alert>
+                <ngb-alert *ngIf="editUserError && editUserError?.status >= 500 || editUserError?.status == 0" [type]="'danger'" (closed)="editUserError = ''">
+                  Failed...please try again
+                </ngb-alert>
+              </div>
+
+              <mat-radio-group aria-labelledby="example-radio-group-label" class="example-radio-group" [(ngModel)]="editChoiceValue">
+                <div class="text-yellow-300 text-lg font-medium">Select Field you want to Edit</div>
+                <mat-radio-button class="example-radio-button" *ngFor="let edit of editChoice" [value]="edit">
+                  {{edit | titlecase}}
+                </mat-radio-button>
+              </mat-radio-group>
+    
+              <form *ngIf="editChoiceValue" [formGroup]="nameForm" class="max-w-[500px] py-2">
+                <mat-form-field class="w-full">
+                  <mat-label>UserName</mat-label>
+                  <input formControlName="userName" matInput required />
+                  <mat-hint>Enter userName</mat-hint>
+                  <mat-error>
+                    UserName required
+                  </mat-error>
+                </mat-form-field>
+              </form>
+    
+              <form [formGroup]="editForm" class="max-w-[500px] py-2">
+                <mat-form-field class="w-full">
+                  <mat-label>Edit</mat-label>
+                  <input formControlName="path" [value]="editChoiceValue" matInput required />
+                </mat-form-field>
+                <mat-form-field class="w-full" *ngIf="editChoiceValue">
+                  <mat-label>Value</mat-label>
+                  <input formControlName="value" matInput required placeholder="eg.James" />
+                  <mat-hint>Enter new value</mat-hint>
+                  <mat-error>
+                    Value required
+                  </mat-error>
+                </mat-form-field>
+
+                <div *ngIf="editChoiceValue" class="mt-3">
+                  <button *ngIf="!loading" mat-flat-button color="primary" type="button" (click)="editUser()" [disabled]="nameForm.invalid || editForm.invalid || !editChoiceValue" class="btn w-[100%] text-lg">
+                    Edit
+                  </button>
+                  <button *ngIf="loading" mat-flat-button color="accent" class="btn w-[100%] text-lg">
+                    <span class="flex items-center m-auto">Please wait...<mat-spinner [diameter]="25"></mat-spinner></span>
+                  </button>
+                </div>
+              </form>
+            </mat-expansion-panel>
+          </mat-accordion>
+        </div>
+        
+      </div>  
+    </div>
+  </div>
+</div>

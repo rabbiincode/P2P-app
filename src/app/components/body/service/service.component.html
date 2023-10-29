@@ -1,0 +1,22 @@
+<div class="bg-[#b0bec5]">
+  <div class="container py-16">
+
+    <div class="text-center pb-4">
+      <p [ngClass]="scrollPagePosition == 'services' ? 'animate__animated animate__pulse animate__infinite' : ''" class="text-2xl font-semibold header-underline">
+        Our Services
+      </p>
+      <p class="font-medium text-lg text-[#009688]">Here are services available to you</p>
+    </div>
+
+    <mdb-carousel [controls]="true" [indicators]="true" [animation]="'fade'">
+      <mdb-carousel-item *ngFor="let slider of slide">
+        <img src={{slider.image}} class="d-block w-100" alt="image" />
+        <div class="carousel-caption block">
+          <h2 class="text-orange-600">{{slider.title}}</h2>
+          <p [style]="slider.color" class="font-medium text-xl">{{slider.content}}</p>
+        </div>
+      </mdb-carousel-item>
+    </mdb-carousel>
+    
+  </div>
+</div>
