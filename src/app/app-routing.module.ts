@@ -10,7 +10,7 @@ const routerOptions: ExtraOptions = {
 
 const routes: Routes = [
   { path: '**', component: NotFoundComponent }
-];
+]
 
 @NgModule({
   imports: [
@@ -19,4 +19,5 @@ const routes: Routes = [
   ],
   exports: [RouterModule]
 })
+
 export class AppRoutingModule {}

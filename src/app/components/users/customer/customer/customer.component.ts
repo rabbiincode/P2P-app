@@ -35,6 +35,11 @@ export class CustomerComponent {
       url: '/user/transfer'
     },
     {
+      service: 'Loans',
+      icon: 'redeem',
+      url: '/user/loan'
+    },
+    {
       service: 'Savings',
       icon: 'savings',
       url: '/user/savings'

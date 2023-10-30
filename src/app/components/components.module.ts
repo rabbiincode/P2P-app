@@ -53,10 +53,13 @@ import { CustomerDashboardComponent } from './users/customer/customer-dashboard/
 import { CustomerTransactionsComponent } from './users/customer/customer-transactions/customer-transactions.component';
 import { ContactUsComponent } from './users/customer/contact-us/contact-us.component';
 import { ProfileComponent } from './users/customer/profile/profile.component';
+import { LoanComponent } from './users/customer/loan/loan.component';
 import { QuestionsComponent } from './body/questions/questions.component';
 import { FinanceComponent } from './body/finance/finance.component';
 import { UtilitiesComponent } from './users/customer/utilities/utilities.component';
 import { NotificationsComponent } from './notifications/notifications/notifications.component';
+import { LendComponent } from './users/customer/lend/lend.component';
+import { ChatBotComponent } from './body/chat-bot/chat-bot.component';
 
 @NgModule({
   declarations: [
@@ -95,10 +98,13 @@ import { NotificationsComponent } from './notifications/notifications/notificati
     CustomerTransactionsComponent,
     ContactUsComponent,
     ProfileComponent,
+    LoanComponent,
     QuestionsComponent,
     FinanceComponent,
     UtilitiesComponent,
     NotificationsComponent,
+    LendComponent,
+    ChatBotComponent,
   ],
   imports: [
     CommonModule,
@@ -125,4 +131,4 @@ import { NotificationsComponent } from './notifications/notifications/notificati
   ]
 })
 
-export class ComponentsModule { }
+export class ComponentsModule {}

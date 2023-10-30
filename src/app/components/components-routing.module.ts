@@ -13,6 +13,7 @@ import { UtilitiesComponent } from './users/customer/utilities/utilities.compone
 import { ContactUsComponent } from './users/customer/contact-us/contact-us.component';
 import { ProfileComponent } from './users/customer/profile/profile.component';
 import { QuestionsComponent } from './body/questions/questions.component';
+import { LoanComponent } from './users/customer/loan/loan.component';
 import { FinanceComponent } from './body/finance/finance.component';
 import { LoginGuard } from './guards/login.guard';
 
@@ -33,9 +34,10 @@ const routes: Routes = [
       { path: 'utilities', component: UtilitiesComponent },
       { path: 'contact', component: ContactUsComponent },
       { path: 'finance', component: FinanceComponent },
+      { path: 'loan', component: LoanComponent },
       { path: 'profile', component: ProfileComponent }
     ],
-    canActivate: [LoginGuard]
+    // canActivate: [LoginGuard]
   },
   { path: 'finance', component: FinanceComponent},
   { path: 'questions', component: QuestionsComponent },

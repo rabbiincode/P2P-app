@@ -40,4 +40,5 @@ import { RequestInterceptor } from './components/interceptors/request.intercepto
   ],
   bootstrap: [AppComponent]
 })
-export class AppModule { }
+
+export class AppModule {}

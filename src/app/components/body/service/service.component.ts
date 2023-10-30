@@ -14,13 +14,13 @@ export class ServiceComponent {
       image: '/assets/images/service/s1.jpg',
       title: 'LOAN',
       content: 'Access quick loans with competitive interest rate and unique repayment plan',
-      color: 'color:orange'
+      color: 'color:black'
     },
     {
       image: '/assets/images/service/s2.jpg',
       title: 'SIDE INCOME SOURCE',
       content: 'Turn your spare money into an income stream with guaranteed payment',
-      color: 'color:orange'
+      color: 'color:black'
     },
     {
       image: '/assets/images/service/s3.jpg',

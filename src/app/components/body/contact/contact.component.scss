@@ -1,3 +1,10 @@
+.bot{
+  position: absolute;
+  bottom: 3rem;
+  left: 3rem;
+  z-index: 100;
+}
+
 .circle-icon {
   background: #6075d1;
   display: flex;
@@ -14,4 +21,11 @@
 .circle-icon:hover {
   background: #7d8ed8;
   color: #fff;
+}
+
+@media (max-width: 768px){
+  .bot{
+    bottom: 1.5rem;
+    left: 1.5rem;
+  }
 }

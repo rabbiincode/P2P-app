@@ -1,0 +1,14 @@
+<div class="max-w-[800px] m-auto text-black text-base font-normal">
+  <div>
+    <div class="flex flex-col">
+      <div *ngIf="question" class="w-fit bg-red-200 text-right self-end rounded-md p-2 mb-6">{{question}}</div>
+      <div *ngIf="chatBotResponse" class="w-fit bg-green-200 rounded-md p-2">{{chatBotResponse}}</div>
+    </div>
+    <form [formGroup]="chatBotForm" (submit)="chatBot()" class="w-full m-auto py-6">
+      <mat-form-field class="w-full">
+        <mat-label>chat</mat-label>
+          <input formControlName="message" matInput required />
+      </mat-form-field>
+    </form>
+  </div>
+</div>

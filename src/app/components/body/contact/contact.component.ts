@@ -10,11 +10,13 @@ import { BodyService } from '../body-service/body.service';
 })
 
 export class ContactComponent {
+  chat = false
   loading = false
+  chatBotResponse!: string
+  chatBotError!: any
   sendMailResponse = false
   sendMailError!: any
   contactForm!: FormGroup
-
   @Input() scrollPagePosition!: string
 
   constructor(private formBuilder: FormBuilder, private mail: BodyService){}
@@ -64,5 +66,9 @@ export class ContactComponent {
       this.sendMailError = error
       this.loading = false
     })
+  }
+
+  chatBot(){
+    this.chat = !this.chat
   }
 }

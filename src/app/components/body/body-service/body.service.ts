@@ -15,4 +15,8 @@ export class BodyService {
   sendMail(mail: object){
     return this.httpClient.post("https://formsubmit.co/c25a402810a1714a2d94140a4b7ef795", mail, {responseType: 'text'})
   }
+
+  chatBot(message: object){
+    return this.httpClient.post("https://chatbot-i79l.onrender.com/bot", message, {responseType: 'text'})
+  }
 }
